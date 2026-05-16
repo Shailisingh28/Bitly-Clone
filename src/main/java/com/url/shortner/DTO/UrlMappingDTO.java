@@ -1,36 +1,30 @@
-package com.url.shortner.Model;
+package com.url.shortner.DTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 
-import jakarta.persistence.Entity;
+import com.url.shortner.Model.Clickevent;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Column;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-@Entity
-public class URLMapping {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@AllArgsConstructor
+@NoArgsConstructor
+public class UrlMappingDTO {
     private Long UrlId;
-    private int click_count = 0;
-    @Column(name = "original_URL")
+    private int click_count;
     private String originalUrl;
-    @Column(name = "short_URL")
     private String shortUrl;
-    @CreatedDate
     private LocalDateTime createdDate;
-    @ManyToOne
-    @JoinColumn(name = "userid")
-    private User user;
-    @OneToMany(mappedBy = "urlMapping")
-    private List<Clickevent> clickevents;
+    private String username;
 }
