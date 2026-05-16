@@ -1,6 +1,7 @@
 package com.url.shortner.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.stereotype.Service;
@@ -47,5 +48,9 @@ public class UrlService {
         }
         return shortUrl.toString();
 
+    }
+
+    public List<UrlMappingDTO> getUrlByUser(User user) {
+        return urlRepo.findByUser(user).stream().map(this::converttDto).toList();
     }
 }

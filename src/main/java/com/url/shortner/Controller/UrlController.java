@@ -1,16 +1,19 @@
 package com.url.shortner.Controller;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.url.shortner.DTO.UrlMappingDTO;
+import com.url.shortner.Model.URLMapping;
 import com.url.shortner.Model.User;
 import com.url.shortner.Service.UrlService;
 import com.url.shortner.Service.userService;
@@ -31,6 +34,14 @@ public class UrlController {
         User user = userService.findByUsername(principal.getName());
         UrlMappingDTO urlMappingDTO = service.createShortUrl(originalUrl, user);
         return ResponseEntity.ok(urlMappingDTO);
+    }
+
+    @GetMapping("/UrlList")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<List<UrlMappingDTO>> getUrlList(Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        List<UrlMappingDTO> list = service.getUrlByUser(user);
+        return ResponseEntity.ok(list);
     }
 
 }
