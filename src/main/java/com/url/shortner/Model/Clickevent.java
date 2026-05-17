@@ -11,14 +11,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+
 @Entity
 @Data
 public class Clickevent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long eventId;
-    @CreatedDate 
-    private LocalDateTime click_date;
+    @CreatedDate
+    @jakarta.persistence.Column(name = "click_date")
+    private LocalDateTime clickDate;
     @ManyToOne
     @JoinColumn(name = "UrlId")
     private URLMapping urlMapping;
